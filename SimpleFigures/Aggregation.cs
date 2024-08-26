@@ -5,6 +5,21 @@ class Aggregation : IFigure
     private List<IFigure> shapes = [];
     private readonly (double X, double Y) origin = (0, 0);
 
+    public override string ToString()
+    {
+        // Create a list to hold the string representations of each shape
+        var shapeStrings = new List<string>();
+
+        // Iterate through each shape in the list and call its ToString() method
+        foreach (var shape in shapes)
+        {
+            shapeStrings.Add(shape.ToString() ?? "");
+        }
+
+        // Combine all shape strings into a single string, separated by new lines
+        return string.Join(Environment.NewLine, shapeStrings);
+    }
+
     /// <summary>
     /// The Add method adds a shape to a collection of figures.
     /// </summary>

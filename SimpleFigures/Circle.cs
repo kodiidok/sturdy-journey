@@ -15,7 +15,7 @@ class Circle(double x, double y, double radius) : IFigure
     /// `(x - h)^2 + (y - k)^2 = r^2`, where (h, k) is the center of the circle and r is the radius. The
     /// values for h, k, and r are obtained from the `_center` and `_radius` properties of the class.
     /// </returns>
-    public string GetCircle()
+    public override string ToString()
     {
         // standard equation of the circle in the form 
         // (𝑥−ℎ)^2 +(𝑦−𝑘)^2 = 𝑟^2 where (ℎ,𝑘) is the center of the circle and r is the radius.

@@ -5,6 +5,8 @@ class Line(double x1, double y1, double x2, double y2) : IFigure
     private Point _point1 = new(x1, y1);
     private Point _point2 = new(x2, y2);
 
+    public override string ToString() => $"{_point1.ToString()}, {_point2.ToString()}";
+
     /// <summary>
     /// The Move function moves two points by the specified x and y coordinates.
     /// </summary>

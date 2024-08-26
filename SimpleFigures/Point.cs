@@ -7,6 +7,8 @@ class Point(double x, double y) : IFigure
 
     public (double X, double Y) GetCoordinates() => (X, Y);
 
+    public override string ToString() => $"({X}, {Y})";
+
     /// <summary>
     /// The Move function increments the X and Y coordinates by the specified values.
     /// </summary>
