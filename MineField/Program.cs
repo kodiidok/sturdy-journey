@@ -19,7 +19,7 @@ public class Program
         Console.WriteLine(mineField.ToString());
 
         SnifferPup pup = new SnifferPup(mineField);
-        HashSet<GraphNode>? sniffed = pup.Sniff(mineField.GetGrid()[0, 0]);
+        HashSet<GraphNode>? sniffed = pup.Sniff(mineField.GetGrid()[0, 1]);
 
         if (sniffed != null && sniffed.Count > 0)
         {
