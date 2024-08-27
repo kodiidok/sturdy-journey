@@ -9,11 +9,13 @@ class SnifferPup
         _field = field;
     }
 
-    public HashSet<GraphNode> Sniff(GraphNode root)
+    public HashSet<GraphNode>? Sniff(GraphNode root)
     {
         Console.WriteLine("Sniffing for mines...");
 
-        // Create a priority queue to store paths based on safety
+        if (root.Value == 1) return null; // Cannot start from a Land mine
+
+        // Create a queue to store paths based on safety
         var queue = new Queue<GraphNode>();
         queue.Enqueue(root);
 
@@ -22,6 +24,12 @@ class SnifferPup
 
         while (queue.Count > 0)
         {
+            foreach (var node in queue)
+            {
+                Console.Write(node.Id + " ");
+            }
+            Console.WriteLine();
+
             var currentNode = queue.Dequeue();
 
             if (!visited.Contains(currentNode))
@@ -29,17 +37,35 @@ class SnifferPup
                 visited.Add(currentNode);
                 if (currentNode.Value == 0) safe.Add(currentNode);
 
-                if (currentNode.UpLeft != null) queue.Enqueue(currentNode.UpLeft);
-                if (currentNode.Up != null) queue.Enqueue(currentNode.Up);
-                if (currentNode.UpRight != null) queue.Enqueue(currentNode.UpRight);
-                if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
-                if (currentNode.DownRight != null) queue.Enqueue(currentNode.DownRight);
-                if (currentNode.Down != null) queue.Enqueue(currentNode.Down);
-                if (currentNode.DownLeft != null) queue.Enqueue(currentNode.DownLeft);
-                if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
+                var directions = new List<GraphNode?>
+                {
+                    currentNode.UpLeft,
+                    currentNode.Up,
+                    currentNode.UpRight,
+                    currentNode.Right,
+                    currentNode.DownRight,
+                    currentNode.Down,
+                    currentNode.DownLeft,
+                    currentNode.Left
+                };
+
+                foreach (var direction in directions)
+                {
+                    if (direction != null && direction.Value == 0 && !visited.Contains(direction) && direction.Id != null && currentNode.Id != null)
+                    {
+                        int directionRow = int.Parse(direction.Id.Split(",")[0]);
+                        int currentNodeRow = int.Parse(currentNode.Id.Split(",")[0]);
+
+                        if (directionRow >= currentNodeRow)
+                        {
+                            queue.Enqueue(direction);
+                        }
+                    }
+                }
             }
         }
 
         return safe;
     }
+
 }
